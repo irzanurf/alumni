@@ -259,6 +259,7 @@
                                                                         <input class="form-control" name="email" type="email" required=""><br>
                                                                         <label style="font-weight: bold; color:black">No. HP(WA)</label><label style="color:red; font-size:12px;"> (*Wajib diisi)</label>
                                                                         <input class="form-control" name="no_hp" type="number" required=""><br>
+                                                                        <label style="font-weight: bold; color:black">Fakultas</label><label style="color:red; font-size:12px;"> (*Wajib diisi)</label>
                                                                         <select class="form-control" name="fakultas" placeholder="prestasi" required="">
                                                                             <option value="">Please Select</option>
                                                                             <option value="Teknik">Teknik</option>
@@ -280,7 +281,7 @@
                                                                         <label style="font-weight: bold; color:black">Angkatan</label><label style="color:red; font-size:12px;"> (*Wajib diisi)</label>
                                                                         <select class="form-control" name="angkatan" required="">
                                                                             <?php
-                                                                            for ($year = (int)date('Y'); 1990 <= $year; $year--): ?>
+                                                                            for ($year = (int)date('Y'); 1980 <= $year; $year--): ?>
                                                                             <option value="<?php echo $year; ?>"><?php echo $year; ?> </option>
                                                                             <?php endfor; ?>
                                                                         </select><br>

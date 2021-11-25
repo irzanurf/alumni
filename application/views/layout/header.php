@@ -192,10 +192,15 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                             href="<?= base_url('Admin') ?>" aria-expanded="false"><i class="mdi me-2 mdi-gauge"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
+                        <?php if($username=="admin"){
+                            ?>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                            href="<?= base_url('Admin/akun') ?>" aria-expanded="false"><i class="mdi me-2 mdi-account"></i><span
+                                    class="hide-menu">Akun</span></a></li>
+                        <?php } ?>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                             href="<?= base_url('Welcome/changePass') ?>" aria-expanded="false"><i class="mdi me-2 mdi-lock-open-outline"></i><span
                                     class="hide-menu">Ubah Password</span></a></li>
-                        
                         <li class="text-center p-20 upgrade-btn">
                             <a href="<?= base_url('Welcome/logout') ?>"
                                 class="btn btn-danger text-white mt-4">Log Out</a>

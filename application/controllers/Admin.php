@@ -231,4 +231,78 @@ class Admin extends CI_Controller {
         $this->M_Alumni->del_alumni(array("id"=>$id));
         redirect (base_url("admin?q=$q&page=$page"));
     }
+
+    public function akun()
+    {
+        $username = $this->session->userdata('username');
+        $head['username']=$username;
+        $data['akun'] = $this->M_Akun->get_fakultas()->result();
+        $this->load->view('layout/header', $head);
+        $this->load->view('admin/akun', $data);
+        $this->load->view("layout/footer");
+    }
+
+    public function insert_akun(){
+        $username = $this->input->post('username');
+        $fakultas = $this->input->post('fakultas');
+        $password = md5($this->input->post('password'));
+        $akun = [
+            'username'=>$username,
+            'password'=>$password,
+            'role'=>1
+        ];
+        $prodi = [
+            'username'=>$username,
+            'fakultas'=>$fakultas
+        ];
+        $this->M_Akun->insert_akun($akun,$username);
+        $this->M_Akun->insert_prodi($prodi,$username);
+        $this->session->set_flashdata('message','<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Data berhasil ditambahkan</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>');
+        redirect (base_url("admin/akun"));
+    }
+
+    public function passakun()
+    {
+        $username = $this->input->get('username');
+        $head['username']=$username;
+        $data['akun']= $this->M_Akun->getwhere_prodi(array('username'=>"$username"))->row();
+        $this->load->view('layout/header', $head);
+        $this->load->view('admin/pass_akun', $data);
+        $this->load->view("layout/footer");
+    }
+
+    public function changePass()
+    {
+        $username = $this->input->post('username',true);
+        $pass = $this->input->post('pass',true);
+        $password = [
+            'password'=>MD5($pass),
+        ];
+        $this->M_Akun->changePass($username, $password);
+        $this->session->set_flashdata('message','<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Data berhasil diubah</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>');
+        redirect("Admin/akun"); 
+    }
+
+    public function delete_akun(){
+        $username = $this->input->post('username');
+        $this->M_Akun->del_akun(array('username'=>$username));
+        $this->M_Akun->del_prodi(array('username'=>$username));
+        $this->session->set_flashdata('message','<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Data berhasil dihapus</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>');
+        redirect("Admin/akun"); 
+    }
 }
